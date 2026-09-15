@@ -16,7 +16,7 @@ Copy from here. Type nothing from the slides.
 # Preflight
 sudo apt-get install -y xdg-utils # installs xdg-utils which is needed for wrangler
 npx wrangler --version          # if this fails: npm install
-npx wrangler login              # approve in the browser tab; this token is a crossing
+npx wrangler login --device              # approve in the browser tab; this token is a crossing
 
 # Step 1: create the database
 npx wrangler d1 create mgt3745-entries
