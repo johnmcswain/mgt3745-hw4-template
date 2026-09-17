@@ -1,22 +1,36 @@
 # Session B Commands and HW4 Checklist
 
-This repository is the HW4 template. It contains the HW3 three-file app
-already wired for a Worker, the full Context Scaffold, and the HW4 backend
-files. If you are continuing in your own `mgt3745-hw3` repository (the
-default), copy in `worker.js`, `wrangler.toml`, `schema.sql`, `package.json`,
-`.gitignore`, `.devcontainer/`, and `context/TOOLS.md` and `context/STYLE.md`,
-then follow the steps below. If you are starting fresh from this template,
-paste your HW3 context files over the placeholders first.
+This repository is the HW4 template. Create your own copy with **Use this
+template**, name it `mgt3745-hw4`, and open it in a Codespace. Your HW3
+repository stays exactly as you submitted it; link it from your new README.
+
+## Step 0: Bring Your HW3 Work In
+
+Copy these files from your HW3 repository over the template's, by name:
+
+- `index.html`, `styles.css`, `app.js` (the template's wired `app.js` is kept for you in `docs/app.reference.js`)
+- the `docs` folder (your HW3 GIF)
+- `context/PROJECT.md`, `USERS.md`, `FEATURES.md`, `STANDARDS.md`, `ARCHITECTURE.md`, `CLAUDE.md`
+- `context/curiosity/`
+
+Do **not** copy your HW3 `TOOLS.md` or `STYLE.md`. Those were previews; the
+template holds the real formats. Everything else in the template stays.
+
+The HW4 skeletons that were in the template's context files are in
+`docs/CONTEXT_HW4_ADDITIONS.md`. Paste them into yours when you reach Part One.
 
 ## Session B, in Commands
 
 Copy from here. Type nothing from the slides.
 
 ```bash
-# Preflight
-sudo apt-get install -y xdg-utils # installs xdg-utils which is needed for wrangler
-npx wrangler --version          # if this fails: npm install
-npx wrangler login --device              # approve in the browser tab; this token is a crossing
+# Preflight (the devcontainer already installed xdg-utils and ran npm install;
+# if wrangler is missing, run these two lines first)
+sudo apt-get install -y xdg-utils   # needed by wrangler login inside a Codespace
+npm install
+
+npx wrangler --version
+npx wrangler login --device         # approve in the browser tab; this token is a crossing
 
 # Step 1: create the database
 npx wrangler d1 create mgt3745-entries
@@ -46,8 +60,9 @@ fetch("https://mgt3745-hw4.<your-subdomain>.workers.dev/entries", {
 
 ## Step 4: Wire It to Your HW3 Page
 
-Replace the two localStorage lines in `app.js`. Render is unchanged;
-`textContent` still applies.
+Replace the two localStorage lines in your `app.js`. Render is unchanged;
+`textContent` still applies. `docs/app.reference.js` shows the whole thing
+wired; read it rather than pasting it.
 
 ```js
 const API = "https://mgt3745-hw4.<your-subdomain>.workers.dev";
@@ -71,18 +86,21 @@ async function save(entry) {
 `showError` is yours to write: put the message somewhere on the page a user
 would see it. Do not throw in the console.
 
-The demo: add an entry. DevTools, Application, Clear site data. Reload. The
-entry is still there. That is your See It Work GIF.
+Run the page: right-click `index.html`, **Open with Live Server**. The demo:
+add an entry. DevTools, Application, Clear site data. Reload. The entry is
+still there. That is your See It Work GIF.
 
 ## Common Failures
 
 | Symptom | Cause | Fix |
 |---|---|---|
+| `wrangler login` hangs or errors about opening a browser | Codespace has no browser; `xdg-utils` missing | `sudo apt-get install -y xdg-utils`, then `npx wrangler login --device`. |
 | `wrangler deploy` complains about wrangler.toml | Broken TOML after pasting the id | Keep the quotes around the id. Change nothing else on that line. |
 | Deployed Worker returns 500 on GET | Schema ran locally, not on Cloudflare | Rerun `d1 execute` with `--remote`. |
 | Browser console: blocked by CORS policy | Worker missing the CORS headers, or the OPTIONS branch | Both are in the template `worker.js`. Compare yours line by line. |
 | POST returns 400 "body must be JSON" | Missing `content-type` header or invalid JSON | Copy the fetch above exactly. |
 | `PASTE_ID_HERE` still in wrangler.toml | Step 1 not finished | Run `d1 create` and paste the id. |
+| Page loads but list is empty and status says "could not reach the server" | `API` in app.js still says YOUR-SUBDOMAIN | Paste your real Worker URL. |
 
 ## Running Locally (Optional)
 
@@ -93,11 +111,12 @@ with `npx wrangler d1 execute mgt3745-entries --local --file=schema.sql`.
 
 ## Before HW4 Is Done
 
+- Your HW3 files are in, and the README links your HW3 repository.
 - `wrangler.toml` has a real id and no secrets.
-- `.gitignore` excludes `node_modules/` and `.wrangler/`.
 - `worker.js` has one validation rule of yours, traced to an EARS statement.
 - `CORS` origin narrowed from `*` to your page's origin (Craft credit).
+- ADR-002 written; ADR-001 marked Superseded and unedited.
 - TOOLS.md has at least four rows with crossing statements.
 - STYLE.md has at least four tokens, one sentence each, and two refusals.
 - Deployed URL is in the README and returns `[]` or entries, never an error.
-- Final commit tagged `hw4`.
+- Both URLs (repository and Worker) pasted into Canvas.

@@ -6,6 +6,8 @@
 
 ## What
 
+*HW3 repository: [link it here](https://github.com/YOUR-USER/mgt3745-hw3)*
+
 *One paragraph naming the problem, the user, and the feature, with links to
 [PROJECT.md](context/PROJECT.md) and [FEATURES.md](context/FEATURES.md).
 One sentence on where data now lives and why (ADR-002).*
@@ -33,8 +35,8 @@ Deployed: *`https://mgt3745-hw4.YOUR-SUBDOMAIN.workers.dev/entries`*
 
 From a fresh Codespace:
 
-1. Open the repository in a Codespace. The devcontainer runs `npm install`.
-2. `npx wrangler login`, then follow [docs/SESSION_B_COMMANDS.md](docs/SESSION_B_COMMANDS.md)
+1. Open the repository in a Codespace. The devcontainer installs xdg-utils and runs `npm install`.
+2. `npx wrangler login --device`, then follow [docs/SESSION_B_COMMANDS.md](docs/SESSION_B_COMMANDS.md)
    to create the database, run the schema, and deploy.
 3. Paste the deployed URL into `app.js` as `API`.
 4. Right-click `index.html`, choose **Open with Live Server**.
